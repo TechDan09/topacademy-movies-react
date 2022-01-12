@@ -1,0 +1,21 @@
+.movie-info {
+  padding: 10px;
+}
+
+.movie-info .title {
+  font-size: 1.5rem;
+  font-weight: 700;
+}
+
+.movie-info .movie-details {
+  font-size: 0.8rem;
+  color: var(--light-grayish-blue);
+  padding-bottom: 0.3rem;
+}
+
+.movie-info .plot,
+.movie-info .director,
+.movie-info .actors {
+  font-size: 0.8rem;
+  line-height: 1.2rem;
+}
