@@ -20,24 +20,32 @@ const BASE_URL = 'http://localhost:3001/movies?_page=1&_limit=12';
 
 function App() {
   const [movies, setMovies] = useState([]);
+  const [isLoading, setIsLoading] = useState(false);
+  const [hasError, setHasError] = useState(false);
 
   useEffect(() => {
     fetchMoviesHandler();
   }, []);
 
   async function fetchMoviesHandler() {
-    const response = await fetch(BASE_URL);
-    const data = await response.json();
-    setMovies(data);
-  }
+    setIsLoading(true);
+    setHasError(false);
+    try {
+      const response = await fetch(BASE_URL);
+      const data = await response.json();
+      setMovies(data);
+    } catch (error) {
+      setHasError(false);
+    }
+    setIsLoading(false);
+  } 
 
   return (
     <>
       <Filter />
       <div className='movies d-grid justify-center gap-1'>
-        {movies.map(
-          movie => <Card key={movie.id} movie={movie} />
-        )}
+      {hasError && <p>Unable to fetch movies</p>}
+      {isLoading ? <p>Loading...</p> : movies.map( movie => <Card key={movie.id} movie={movie} /> )}
       </div>
     </>
   );
