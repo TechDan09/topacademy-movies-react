@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/TechDan09/topacademy-movies-react/issues"
   },
-  "homepage": "https://github.com/TechDan09/topacademy-movies-react#readme"
+  "homepage": "https://github.com/TechDan09/topacademy-movies-react#readme",
+  "dependencies": {
+    "concurrently": "^7.0.0"
+  }
 }
