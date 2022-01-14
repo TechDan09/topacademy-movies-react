@@ -8,7 +8,7 @@ const BASE_URL = 'http://localhost:3001/movies?_limit=12';
 const Index = () => {
 	const [movies, setMovies] = useState([]);
   const [currentPage, setCurrentPage] = useState(1);
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
   const [hasError, setHasError] = useState(false);
   const [totalCount, setTotalCount] = useState();
 

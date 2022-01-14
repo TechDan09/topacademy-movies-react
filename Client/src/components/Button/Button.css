@@ -1,8 +1,7 @@
 .btn{
-	background-color: var(--dark-background);
+	background-color: var(--orange);
   border: none;
-  padding: 0.3rem 1rem;
+  padding: 0.7rem 4rem;
   display: block;
   margin: 0.3rem 0;
-  width: 100%;
 }

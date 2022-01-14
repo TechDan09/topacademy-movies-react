@@ -79,3 +79,7 @@ button:hover {
 .d-none {
   display: none;
 }
+
+.p-5{
+  padding: 10px;
+}
