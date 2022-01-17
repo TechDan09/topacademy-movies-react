@@ -10,7 +10,7 @@ import { Link } from 'react-router-dom';
  * @returns movie card
  */
 const Card = ({ movie }) => {
-  const cardLink = `/single-movie/${movie.id}`
+  const cardLink = `/movies/${movie.id}`
 	return (
     <Link to={cardLink}>
       <div className="card">

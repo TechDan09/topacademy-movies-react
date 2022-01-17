@@ -13,7 +13,6 @@ const Index = () => {
 
   const { data: movies, isLoading, error, totalCount } = useFetch(url);
 
-  //re-set the state of url after changing page number in order to refresh the url
   const onPageHandler = (pageNumber) => {
     setCurrentPage(pageNumber);
     setUrl(`${mainUrl}&_page=${pageNumber}`);
@@ -23,8 +22,9 @@ const Index = () => {
     if (!error) {
       return isLoading ? <p>Loading...</p> : (
         <>
+          <p className='p-5'>Showing {movies.length} of {totalCount} movies</p>
           <MoviesList movies={movies} />
-          <Pagination length={totalCount} onPageChange={onPageHandler} currentPage={currentPage}/>
+          <Pagination length={totalCount} showing={movies.length} onPageChange={onPageHandler} currentPage={currentPage}/>
         </>
       )
     }
@@ -52,7 +52,11 @@ const Index = () => {
 
 	return (
 		<div>
-			<Filter onFilterYear={filterYearHandler} onFilterGenre={filterGenreHandler} onFilterSearch={filterSearchHandler}/>
+			<Filter 
+        onFilterYear={filterYearHandler} 
+        onFilterGenre={filterGenreHandler} 
+        onFilterSearch={filterSearchHandler}
+      />
       {displayMovies()}
 		</div>
 	);

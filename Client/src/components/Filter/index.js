@@ -25,7 +25,6 @@ const Filter =  ({ onFilterYear, onFilterGenre, onFilterSearch }) => {
 			<Yearfilter onYearSubmit={handleYearFilter} />
 			<Genrefilter onGenreChange={handleGenreInput}/>
 			<Searchfilter onSearchSubmit={handleSearchInput}/>			
-			<p className="result-count"></p>
 		</div>
 	);
 }
