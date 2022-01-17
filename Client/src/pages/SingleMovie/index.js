@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import './SingleMovie.css';
 import { Link, useParams } from 'react-router-dom';
 import Image from '../../components/Image';
