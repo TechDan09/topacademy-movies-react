@@ -8,8 +8,8 @@ const BASE_URL = 'http://localhost:3001/movies?_limit=12';
 
 const Index = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [mainUrl, setMainUrl] = useState('http://localhost:3001/movies?_limit=12');
-  const [url, setUrl] = useState(`${mainUrl}`);
+  const [mainUrl, setMainUrl] = useState(BASE_URL);
+  const [url, setUrl] = useState(mainUrl);
 
   const { data: movies, isLoading, error, totalCount } = useFetch(url);
 
