@@ -32,15 +32,27 @@ const Index = () => {
     return <p>Unable to fetch movies</p>
   }
 
-  const onFilterYearHandler = (yearObj) => {
+  const filterYearHandler = (yearObj) => {
     const newUrl = `${BASE_URL}&year_gte=${yearObj.from}&year_lte=${yearObj.to}`;
+    setMainUrl(newUrl);
+    setUrl(newUrl); 
+  }
+
+  const filterGenreHandler = (genre) => {
+    const newUrl = `${BASE_URL}&genres_like=${genre}`;
+    setMainUrl(newUrl);
+    setUrl(newUrl); 
+  }
+
+  const filterSearchHandler = (value) => {
+    const newUrl = `${BASE_URL}&q=${value}`;
     setMainUrl(newUrl);
     setUrl(newUrl); 
   }
 
 	return (
 		<div>
-			<Filter onFilterYear={onFilterYearHandler} />
+			<Filter onFilterYear={filterYearHandler} onFilterGenre={filterGenreHandler} onFilterSearch={filterSearchHandler}/>
       {displayMovies()}
 		</div>
 	);
