@@ -1,6 +1,6 @@
 import React from 'react';
-import Movies from './pages/Movies'
-import SingleMovie from './pages/SingleMovie'
+import { Movies } from './pages/Movies'
+import { SingleMovie } from './pages/SingleMovie'
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 function App() {

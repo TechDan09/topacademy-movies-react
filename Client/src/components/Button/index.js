@@ -1,10 +1,3 @@
-import React from 'react';
-import './Button.css'
+import Button from "./Button";
 
-const Button = ({ style, children, className }) => {
-	return (
-		<button className={`btn rounded-border-0 ${className}`} style={style}>{children}</button>
-	);
-}
-
-export default Button;
+export { Button };

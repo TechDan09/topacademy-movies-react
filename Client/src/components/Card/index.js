@@ -1,24 +1,3 @@
-import React from 'react';
-import './Card.css';
-import Image from '../Image';
-import MovieInfo from '../MovieInfo';
-import { Link } from 'react-router-dom';
+import Card from "./Card";
 
-/**
- * 
- * @param {object} movie
- * @returns movie card
- */
-const Card = ({ movie }) => {
-  const cardLink = `/movies/${movie.id}`
-	return (
-    <Link to={cardLink}>
-      <div className="card">
-      <Image src={movie.posterUrl} alt={movie.title} className={'card-img'} />
-      <MovieInfo info={movie} />
-    </div>
-    </Link>
-	);
-}
-
-export default Card;
+export { Card };
