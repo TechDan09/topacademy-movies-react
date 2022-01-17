@@ -7,6 +7,10 @@ const Index = ({ length, onPageChange, currentPage }) => {
 		let content = [];
 		let pageCount = Math.ceil(length / 12);
 
+		if (pageCount < 2) {
+			return;
+		}
+
 		for (let i = 1; i <= pageCount; i++) {
 			content.push(
 				<button key={i} 
