@@ -3,44 +3,18 @@ import './SingleMovie.css';
 import { Link, useParams } from 'react-router-dom';
 import Image from '../../components/Image';
 import MovieInfo from '../../components/MovieInfo';
+import useFetch from '../../hooks/useFetch';
 
 const BASE_URL = 'http://localhost:3001/movies';
 
 const Index = () => {
 	const { id } = useParams();
-	const [singleMovie, setSingleMovie] = useState({});
-	const [isLoading, setIsLoading] = useState(true);
-  const [hasError, setHasError] = useState(false);
+	const url = `${BASE_URL}?id=${id}`;
 
-	useEffect(() => {
-    async function fetchMoviesHandler() {
-      setIsLoading(true);
-      setHasError(false);
+	const { data, isLoading, error } = useFetch(url);
+	const singleMovie = data[0];
 
-      try {
-        const response = await fetch(`${BASE_URL}?id=${id}`);
-
-        if(!response.ok){
-          throw new Error('Error');
-        }
-        
-        const data = await response.json();
-				console.log(data);
-        setSingleMovie(data[0]);
-      }
-      catch (error) {
-        setSingleMovie([]);
-        setHasError(true);
-      }
-
-      setIsLoading(false);
-    }
-    
-    fetchMoviesHandler();
-		console.log(id);
-  }, [id]);
-
-	if (hasError) {
+	if (error) {
     return <p>Unable to fetch movies</p>
 	}
 
