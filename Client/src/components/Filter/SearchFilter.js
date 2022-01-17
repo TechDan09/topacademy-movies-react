@@ -25,7 +25,7 @@ const Searchfilter = ({ onSearchSubmit }) => {
 					onChange={handleSearchInput}
 					placeholder="search by title, genre, cast"
 				/>
-				<Button style={{backgroundColor: 'var(--dark-background)'}}>Search</Button>
+				<Button style={{backgroundColor: 'var(--dark-background)', width: '100%'}}>Search</Button>
 			</fieldset>
 		</form>
 	);

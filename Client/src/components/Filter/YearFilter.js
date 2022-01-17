@@ -27,7 +27,7 @@ const Yearfilter = ({ onYearSubmit }) => {
 				<span> - </span>
 				<label htmlFor="to">to </label>
 				<input type="number" id="to" name="to" className="to-input" onChange={handleYearInput} />
-				<Button style={{backgroundColor: 'var(--dark-background)'}}>Apply</Button>
+				<Button style={{backgroundColor: 'var(--dark-background)', width: '100%'}}>Apply</Button>
 			</fieldset>		
 		</form>
 	);

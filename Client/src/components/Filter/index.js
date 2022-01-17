@@ -4,7 +4,9 @@ import Genrefilter from './GenreFilter';
 import Searchfilter from './SearchFilter';
 import Yearfilter from './YearFilter';
 
-const Filter = ({ onFilterYear, onFilterGenre, onFilterSearch }) => {
+const Filter =  ({ onFilterYear, onFilterGenre, onFilterSearch }) => {
+
+	console.log('component mount');
 
 	const handleYearFilter = (yearObj) => {
 		onFilterYear(yearObj)
@@ -28,4 +30,4 @@ const Filter = ({ onFilterYear, onFilterGenre, onFilterSearch }) => {
 	);
 }
 
-export default Filter;
+export default React.memo(Filter);

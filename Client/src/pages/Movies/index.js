@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { useState, useCallback } from 'react';
 import MoviesList from '../../components/MoviesList';
 import Filter from '../../components/Filter';
 import Pagination from "../../components/Pagination";
@@ -32,23 +32,23 @@ const Index = () => {
     return <p>Unable to fetch movies</p>
   }
 
-  const filterYearHandler = (yearObj) => {
+  const filterYearHandler = useCallback((yearObj) => {
     const newUrl = `${BASE_URL}&year_gte=${yearObj.from}&year_lte=${yearObj.to}`;
     setMainUrl(newUrl);
     setUrl(newUrl); 
-  }
+  }, []);
 
-  const filterGenreHandler = (genre) => {
+  const filterGenreHandler = useCallback((genre) => {
     const newUrl = `${BASE_URL}&genres_like=${genre}`;
     setMainUrl(newUrl);
     setUrl(newUrl); 
-  }
+  }, []);
 
-  const filterSearchHandler = (value) => {
+  const filterSearchHandler = useCallback((value) => {
     const newUrl = `${BASE_URL}&q=${value}`;
     setMainUrl(newUrl);
     setUrl(newUrl); 
-  }
+  }, []);
 
 	return (
 		<div>
