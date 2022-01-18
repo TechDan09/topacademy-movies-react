@@ -1,8 +1,11 @@
 import React, { useState } from 'react';
 import { Button } from '../Button/';
+import {useNavigate} from 'react-router-dom';
 
 const Searchfilter = ({ onSearchSubmit }) => {
 	const [searchInput, setSearchInput] = useState('');
+	const navigate = useNavigate();
+	// const inputRef = useRef()
 
 	const handleSearchInput = (event) => {
 		setSearchInput(event.target.value);
@@ -10,7 +13,7 @@ const Searchfilter = ({ onSearchSubmit }) => {
 
 	const onSearchFormSubmit = (event) => {
 		event.preventDefault();
-		onSearchSubmit(searchInput);
+		navigate(`/?q=${searchInput}`);
 	}
 
 	return (

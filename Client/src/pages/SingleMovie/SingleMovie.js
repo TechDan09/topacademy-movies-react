@@ -1,18 +1,24 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import './SingleMovie.css';
-import { Link, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Image } from '../../components/Image';
 import { MovieInfo } from '../../components/MovieInfo';
 import useFetch from '../../hooks/useFetch';
+import { Button } from '../../components/Button';
 
 const BASE_URL = 'http://localhost:3001/movies';
 
 const SingleMovie = () => {
 	const { id } = useParams();
 	const url = `${BASE_URL}?id=${id}`;
+	const navigate = useNavigate();
 
-	const { data, isLoading, error } = useFetch(url);
+	const { sendRequest, data, isLoading, error } = useFetch();
 	const singleMovie = data[0];
+
+	useEffect(() => {
+		sendRequest(url);
+	}, [sendRequest, url]);
 
 	if (error) {
     return <p>Unable to fetch movies</p>
@@ -36,12 +42,16 @@ const SingleMovie = () => {
 						{singleMovie.plot}
 					</p>
 					<div className='d-flex p-5 gap-1'>
-						<Link 
-							className='btn rounded-border-0'
-							to="/">
+						<Button 
+							onClick={() => navigate(-1)}>
 							Back
-						</Link>
-						<a className='btn rounded-border-0' href={imdbUrl} target="_blank" style={{'backgroundColor': '#cc0000'}} rel="noreferrer">
+						</Button>
+						<a 
+							className='btn rounded-border-0' 
+							href={imdbUrl} 
+							target="_blank" 
+							style={{'backgroundColor': '#cc0000'}} 
+							rel="noreferrer">
 							View On Imdb
 						</a>
 					</div>

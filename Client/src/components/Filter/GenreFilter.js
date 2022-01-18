@@ -1,10 +1,14 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import useFetch from '../../hooks/useFetch';
 
 const BASE_URL = 'http://localhost:3001/movies';
 
 const Genrefilter = ({ onGenreChange }) => {
-	const { data } = useFetch(BASE_URL);
+	const { sendRequest, data } = useFetch();
+
+	useEffect(() => {
+		sendRequest(BASE_URL);
+	}, [sendRequest]);
 
 	const extractAllGenres = () => {
 		return [...new Set(data.flatMap(({genres}) => genres))].sort();
@@ -15,9 +19,9 @@ const Genrefilter = ({ onGenreChange }) => {
 			<p>Genres</p>
 			<select name="genres" id="genres" className="genre-dropdown" onChange={onGenreChange}>
 				<option value="">Select Genre</option>
-				{extractAllGenres().map(genre => <option value={genre} key={genre}>{genre}</option>)}
+				{extractAllGenres().map((genre, index) => <option value={genre} key={index}>{genre}</option>)}
 			</select>
-	</fieldset>
+		</fieldset>
 	);
 }
 

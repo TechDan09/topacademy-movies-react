@@ -8,6 +8,7 @@ function App() {
     <Router>
       <Routes>
         <Route exact path="/" element={<Movies />} />
+        <Route exact path="/movie/" element={<Movies />} />
         <Route exact path="/movies/:id" element={<SingleMovie />} />
       </Routes>
     </Router>
