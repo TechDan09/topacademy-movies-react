@@ -79,9 +79,3 @@ button:hover {
 .d-none {
   display: none;
 }
-
-.container {
-  padding: 1rem 0;
-  grid-template-columns: repeat(auto-fit, minmax(20rem, 1fr));
-  grid-gap: 1rem;
-}

@@ -1,4 +1,5 @@
 import React from 'react';
+import Button from '../Button/Button';
 import './Filter.css'
 
 const Filter = () => {
@@ -11,7 +12,7 @@ const Filter = () => {
 				<span> - </span>
 				<label htmlFor="to">to</label>
 				<input type="number" id="to" name="to" className="to-input" />
-				<button className="rounded-border-0 year-btn">APPLY</button>
+				<Button name={'Apply'} />
 			</fieldset>
 
 			<fieldset className="genre-filter">

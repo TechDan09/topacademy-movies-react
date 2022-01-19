@@ -1,0 +1,8 @@
+.btn{
+	background-color: var(--dark-background);
+  border: none;
+  padding: 0.3rem 1rem;
+  display: block;
+  margin: 0.3rem 0;
+  width: 100%;
+}
