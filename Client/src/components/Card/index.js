@@ -1,7 +1,8 @@
 import React from 'react';
-import './Card.css'
-import Image from '../Image'
-import MovieInfo from '../MovieInfo'
+import './Card.css';
+import Image from '../Image';
+import MovieInfo from '../MovieInfo';
+import { Link } from 'react-router-dom';
 
 /**
  * 
@@ -9,11 +10,14 @@ import MovieInfo from '../MovieInfo'
  * @returns movie card
  */
 const Card = ({ movie }) => {
+  const cardLink = `/single-movie/${movie.id}`
 	return (
-    <div className="card">
-      <Image src={movie.posterUrl} alt={movie.title} />
+    <Link to={cardLink}>
+      <div className="card">
+      <Image src={movie.posterUrl} alt={movie.title} className={'card-img'} />
       <MovieInfo info={movie} />
     </div>
+    </Link>
 	);
 }
 

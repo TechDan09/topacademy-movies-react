@@ -13,8 +13,8 @@ const Index = ({ info }) => {
 			<ul className="genre d-flex gap-1">
 				<Genres genres={info.genres} />
 			</ul>
-			<p className="director">{info.director}</p>
-			<p className="actors">{info.actors}</p>
+			<p className="director">Director: {info.director}</p>
+			<p className="actors">Actors: {info.actors}</p>
 		</div>
 	);
 }
