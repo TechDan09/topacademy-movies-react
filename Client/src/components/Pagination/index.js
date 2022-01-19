@@ -8,18 +8,12 @@ const Index = ({ length, onPageChange, currentPage }) => {
 		let pageCount = Math.ceil(length / 12);
 
 		for (let i = 1; i <= pageCount; i++) {
-			if (i === currentPage) {
-				content.push(
-					<button key={i} onClick={() => onPageChange(i)} className="pagination_btn page_numbers active"
-					>{i}</button>
-				)
-			} 
-			else {
-				content.push(
-					<button key={i} onClick={() => onPageChange(i)} className="pagination_btn page_numbers"
-					>{i}</button>
-				)
-			}
+			content.push(
+				<button key={i} 
+				onClick={() => onPageChange(i)} 
+				className={`pagination_btn page_numbers ${i === currentPage ? "active" : ""}`}
+				>{i}</button>
+			)
 		}
 		
 		return content;
