@@ -1,19 +1,14 @@
-import React, { useState } from 'react';
+import React, { useRef } from 'react';
 import { Button } from '../Button/';
 import {useNavigate} from 'react-router-dom';
 
-const Searchfilter = ({ onSearchSubmit }) => {
-	const [searchInput, setSearchInput] = useState('');
+const Searchfilter = () => {
 	const navigate = useNavigate();
-	// const inputRef = useRef()
-
-	const handleSearchInput = (event) => {
-		setSearchInput(event.target.value);
-	}
+	const searchInput = useRef();
 
 	const onSearchFormSubmit = (event) => {
 		event.preventDefault();
-		navigate(`/?q=${searchInput}`);
+		navigate(`/?q=${searchInput.current.value}`)
 	}
 
 	return (
@@ -25,7 +20,7 @@ const Searchfilter = ({ onSearchSubmit }) => {
 					name="search"
 					id="search"
 					className="search-input"
-					onChange={handleSearchInput}
+					ref={searchInput}
 					placeholder="search by title, genre, cast"
 				/>
 				<Button style={{backgroundColor: 'var(--dark-background)', width: '100%'}}>Search</Button>
