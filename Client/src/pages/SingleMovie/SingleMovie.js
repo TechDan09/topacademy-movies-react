@@ -1,18 +1,27 @@
 import React from 'react';
 import './SingleMovie.css';
-import { Link, useParams } from 'react-router-dom';
+import { useNavigate, useParams } from 'react-router-dom';
 import { Image } from '../../components/Image';
 import { MovieInfo } from '../../components/MovieInfo';
-import useFetch from '../../hooks/useFetch';
+import { useQuery } from 'react-query'
+import { Button } from '../../components/Button';
+import axios from 'axios';
 
-const BASE_URL = 'http://localhost:3001/movies';
+const api = axios.create({
+  baseURL: "http://localhost:3001/movies" 
+});
 
 const SingleMovie = () => {
 	const { id } = useParams();
-	const url = `${BASE_URL}?id=${id}`;
-
-	const { data, isLoading, error } = useFetch(url);
-	const singleMovie = data[0];
+	const navigate = useNavigate();
+	
+	const getMovie = async ({ queryKey }) => {
+		const response = await api.get(`/?id=${queryKey[1]}`);
+		return response.data
+	}
+	
+	const {data, isLoading, error } = useQuery(["movie", id], getMovie);
+	const singleMovie = data ? data[0] : [];
 
 	if (error) {
     return <p>Unable to fetch movies</p>
@@ -36,12 +45,16 @@ const SingleMovie = () => {
 						{singleMovie.plot}
 					</p>
 					<div className='d-flex p-5 gap-1'>
-						<Link 
-							className='btn rounded-border-0'
-							to="/">
+						<Button 
+							onClick={() => navigate(-1)}>
 							Back
-						</Link>
-						<a className='btn rounded-border-0' href={imdbUrl} target="_blank" style={{'backgroundColor': '#cc0000'}} rel="noreferrer">
+						</Button>
+						<a 
+							className='btn rounded-border-0' 
+							href={imdbUrl} 
+							target="_blank" 
+							style={{'backgroundColor': '#cc0000'}} 
+							rel="noreferrer">
 							View On Imdb
 						</a>
 					</div>

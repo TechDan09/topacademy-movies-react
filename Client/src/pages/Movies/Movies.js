@@ -1,62 +1,58 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState } from 'react';
+import { useSearchParams } from 'react-router-dom';
 import { MoviesList } from '../../components/MoviesList';
 import { Filter } from '../../components/Filter';
 import { Pagination } from "../../components/Pagination";
-import useFetch from '../../hooks/useFetch';
+import { useQuery } from 'react-query';
+import axios from 'axios';
 
-const BASE_URL = 'http://localhost:3001/movies?_limit=12';
+//TODO: research on react context
+//TODO: research on typescript
+
+const api = axios.create({
+  baseURL: "http://localhost:3001/movies?_limit=12" 
+});
 
 const Movies = () => {
   const [currentPage, setCurrentPage] = useState(1);
-  const [mainUrl, setMainUrl] = useState(BASE_URL);
-  const [url, setUrl] = useState(mainUrl);
+  const [searchParams, setSearchParams] = useSearchParams('');
 
-  const { data: movies, isLoading, error, totalCount } = useFetch(url);
+  const fetchMovies = async () => {
+		const response = await api.get('/', { params: Object.fromEntries([...searchParams])});
+		return {
+      items: response.data,
+      count: response.headers['x-total-count']
+    }
+	}
+
+  const {data, isLoading, error} = useQuery(["movies", ...searchParams], fetchMovies);
+
+	const movies = data ? data.items : [];
+  const totalCount = data ? data.count : 0;
 
   const onPageHandler = (pageNumber) => {
-    setCurrentPage(pageNumber);
-    setUrl(`${mainUrl}&_page=${pageNumber}`);
+    let currentParams = Object.fromEntries([...searchParams]);
+    setSearchParams({ ...currentParams, _page: pageNumber });
+    setCurrentPage(pageNumber); 
   }
 
   const displayMovies = () => {
-    if (!error) {
-      return isLoading ? <p>Loading...</p> : (
-        <>
-          <p className='p-5'>Showing {movies.length} of {totalCount} movies</p>
-          <MoviesList movies={movies} />
-          <Pagination length={totalCount} showing={movies.length} onPageChange={onPageHandler} currentPage={currentPage}/>
-        </>
-      )
+    if (error) {
+      return <p>Unable to fetch movies</p>
     }
-    
-    return <p>Unable to fetch movies</p>
+
+    return isLoading ? <p>Loading...</p> : (
+      <>
+        <p className='p-5'>Showing {movies.length} of {totalCount} movies</p>
+        <MoviesList movies={movies} />
+        <Pagination length={totalCount} showing={movies.length} onPageChange={onPageHandler} currentPage={currentPage}/>
+      </>
+    )
   }
-
-  const filterYearHandler = useCallback((yearObj) => {
-    const newUrl = `${BASE_URL}&year_gte=${yearObj.from}&year_lte=${yearObj.to}`;
-    setMainUrl(newUrl);
-    setUrl(newUrl); 
-  }, []);
-
-  const filterGenreHandler = useCallback((genre) => {
-    const newUrl = `${BASE_URL}&genres_like=${genre}`;
-    setMainUrl(newUrl);
-    setUrl(newUrl); 
-  }, []);
-
-  const filterSearchHandler = useCallback((value) => {
-    const newUrl = `${BASE_URL}&q=${value}`;
-    setMainUrl(newUrl);
-    setUrl(newUrl); 
-  }, []);
 
 	return (
 		<div>
-			<Filter 
-        onFilterYear={filterYearHandler} 
-        onFilterGenre={filterGenreHandler} 
-        onFilterSearch={filterSearchHandler}
-      />
+			<Filter />
       {displayMovies()}
 		</div>
 	);

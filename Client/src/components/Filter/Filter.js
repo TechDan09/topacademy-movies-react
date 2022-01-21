@@ -4,29 +4,15 @@ import Genrefilter from './GenreFilter';
 import Searchfilter from './SearchFilter';
 import Yearfilter from './YearFilter';
 
-const Filter =  ({ onFilterYear, onFilterGenre, onFilterSearch }) => {
-
-	console.log('component mount');
-
-	const handleYearFilter = (yearObj) => {
-		onFilterYear(yearObj)
-	}
-
-	const handleGenreInput = (event) => {
-		onFilterGenre(event.target.value);
-	}
-
-	const handleSearchInput = (value) => {
-		onFilterSearch(value);
-	}
+const Filter =  () => {
 
 	return (
 		<div className="filter rounded-border-1 d-flex justify-center gap-1">
-			<Yearfilter onYearSubmit={handleYearFilter} />
-			<Genrefilter onGenreChange={handleGenreInput}/>
-			<Searchfilter onSearchSubmit={handleSearchInput}/>			
+			<Yearfilter />
+			<Genrefilter />
+			<Searchfilter />			
 		</div>
 	);
 }
 
-export default React.memo(Filter);
+export default Filter;
