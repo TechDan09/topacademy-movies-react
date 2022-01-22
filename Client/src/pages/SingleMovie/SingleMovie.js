@@ -1,30 +1,27 @@
 import React from 'react';
 import './SingleMovie.css';
+import { useQuery } from 'react-query'
 import { useNavigate, useParams } from 'react-router-dom';
+import { Api } from '../../api';
 import { Image } from '../../components/Image';
 import { MovieInfo } from '../../components/MovieInfo';
-import { useQuery } from 'react-query'
 import { Button } from '../../components/Button';
-import axios from 'axios';
 
-const api = axios.create({
-  baseURL: "http://localhost:3001/movies" 
-});
+const api = new Api('http://localhost:3001/movies');
 
 const SingleMovie = () => {
 	const { id } = useParams();
 	const navigate = useNavigate();
 	
 	const getMovie = async ({ queryKey }) => {
-		const response = await api.get(`/?id=${queryKey[1]}`);
-		return response.data
+		return await api.getData(`/?id=${queryKey[1]}`);
 	}
 	
 	const {data, isLoading, error } = useQuery(["movie", id], getMovie);
-	const singleMovie = data ? data[0] : [];
+	const singleMovie = data ? data.items[0] : {};
 
 	if (error) {
-    return <p>Unable to fetch movies</p>
+    return <p>Unable to fetch movie</p>
 	}
 
 	if (isLoading) {

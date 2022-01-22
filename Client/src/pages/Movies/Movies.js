@@ -1,28 +1,22 @@
 import React, { useState } from 'react';
 import { useSearchParams } from 'react-router-dom';
+import { useQuery } from 'react-query';
+import { Api } from '../../api';
 import { MoviesList } from '../../components/MoviesList';
 import { Filter } from '../../components/Filter';
 import { Pagination } from "../../components/Pagination";
-import { useQuery } from 'react-query';
-import axios from 'axios';
 
 //TODO: research on react context
 //TODO: research on typescript
 
-const api = axios.create({
-  baseURL: "http://localhost:3001/movies?_limit=12" 
-});
+const api = new Api('http://localhost:3001/movies?_limit=12');
 
 const Movies = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const [searchParams, setSearchParams] = useSearchParams('');
 
   const fetchMovies = async () => {
-		const response = await api.get('/', { params: Object.fromEntries([...searchParams])});
-		return {
-      items: response.data,
-      count: response.headers['x-total-count']
-    }
+    return await api.getData('/', { params: Object.fromEntries([...searchParams])})
 	}
 
   const {data, isLoading, error} = useQuery(["movies", ...searchParams], fetchMovies);
