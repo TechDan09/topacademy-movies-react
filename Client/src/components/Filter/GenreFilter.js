@@ -1,24 +1,21 @@
 import React from 'react';
 import { useQuery } from "react-query";
-import axios from "axios";
 import { useNavigate } from 'react-router-dom';
+import { Api } from '../../api';
 
-const api = axios.create({
-  baseURL: "http://localhost:3001/movies" 
-});
+const api = new Api('http://localhost:3001/movies');
 
 const Genrefilter = () => {
 	const navigate = useNavigate();
 
 	const getGenres = async () => {
-		const response = await api.get('/');
-		return response.data;
+		return await api.getData('/');
 	}
 
 	const { data, isLoading } = useQuery('genres', getGenres);
 
 	const extractAllGenres = () => {
-		return [...new Set(data.flatMap(({genres}) => genres))].sort();
+		return [...new Set(data.items.flatMap(({genres}) => genres))].sort();
 	}
 
 	const handleGenreFilter = (event) => {
